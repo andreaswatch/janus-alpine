@@ -1,4 +1,4 @@
-# Janus gateway in a Docker Container
+# Janus WebRTC gateway in a Docker Container
 
 [![Build Status](https://travis-ci.org/lklock/janus-alpine.svg?branch=mach10)](https://travis-ci.org/lklock/janus-alpine)
 
