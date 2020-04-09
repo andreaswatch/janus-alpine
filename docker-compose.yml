@@ -10,4 +10,4 @@ services:
     - "8188:8188"
     - "10000-10200:10000-10200/udp"
     environment:
-    - DOCKER_IP=91.68.198.160
+    - DOCKER_IP=${DOCKER_IP}
