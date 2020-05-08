@@ -26,10 +26,10 @@ RUN echo "**** install build packages ****" && \
 	libtool \
 	make \
 	mpg123-dev \
+	nginx \
 	libconfig-dev \
 	libogg-dev \
 	libmicrohttpd-dev \
-	libsrtp-dev \
 	libwebsockets-dev \
 	lua5.3-dev \
 	openjpeg-dev \
@@ -38,10 +38,16 @@ RUN echo "**** install build packages ****" && \
 	pkgconf \
 	python3-dev \
 	sudo \
+	supervisor \
 	zlib-dev
 
 RUN git clone https://github.com/sctplab/usrsctp && cd usrsctp && ./bootstrap \
 	&& ./configure CFLAGS="-Wno-error=cpp" --prefix=/usr && make && sudo make install
+
+RUN wget https://github.com/cisco/libsrtp/archive/v2.3.0.tar.gz \
+        && tar xfv v2.3.0.tar.gz  && cd libsrtp-2.3.0 \
+        && ./configure --prefix=/usr --enable-openssl \
+        && make shared_library && sudo make install
 
 RUN git clone https://gitlab.freedesktop.org/libnice/libnice.git/ && cd libnice \
 	&& ./autogen.sh && ./configure --prefix=/usr CFLAGS="-Wno-error=format -Wno-error=cast-align" \
@@ -51,12 +57,12 @@ RUN git clone https://gitlab.freedesktop.org/libnice/libnice.git/ && cd libnice 
 
 RUN mkdir -p /usr/src/janus /var/janus/log /var/janus/data /var/janus/html
 
-RUN cd /usr/src/janus && wget https://github.com/meetecho/janus-gateway/archive/v0.9.2.tar.gz
+RUN cd /usr/src/janus && wget https://github.com/meetecho/janus-gateway/archive/v0.9.4.tar.gz
 
-RUN cd /usr/src/janus && tar -xzf v0.9.2.tar.gz && cd janus-gateway-0.9.2 && \
-	cp -r /usr/src/janus/janus-gateway-0.9.2/html/* /var/janus/html
+RUN cd /usr/src/janus && tar -xzf v0.9.4.tar.gz && cd janus-gateway-0.9.4 && \
+	cp -r /usr/src/janus/janus-gateway-0.9.4/html/* /var/janus/html
 
-RUN cd /usr/src/janus/janus-gateway-0.9.2 && sh autogen.sh && \
+RUN cd /usr/src/janus/janus-gateway-0.9.4 && sh autogen.sh && \
 #	./configure --prefix=/var/janus --disable-rabbitmq --disable-mqtt --enable-docs && \
 	./configure --prefix=/var/janus --disable-rabbitmq --disable-mqtt && \
 	make && make install && make configs && \
@@ -65,8 +71,6 @@ RUN cd /usr/src/janus/janus-gateway-0.9.2 && sh autogen.sh && \
 EXPOSE 8880
 EXPOSE 8088/tcp 8188/tcp
 EXPOSE 8188/udp 10000-10200/udp
-
-RUN apk add nginx supervisor
 
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
