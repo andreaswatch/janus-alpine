@@ -1,6 +1,6 @@
 # Janus WebRTC gateway in a Docker Container
 
-[![Build Status](https://travis-ci.org/lklock/janus-alpine.svg?branch=mach10)](https://travis-ci.org/lklock/janus-alpine)
+[![Build Status](https://travis-ci.org/lklock/janus-alpine.svg?branch=master)](https://travis-ci.org/lklock/janus-alpine)
 
 Run the latest version of the Janus WebRTC gateway well configured in a Docker container.
 This image is based on Alpine Linux (Initially forked from https://github.com/linagora/docker-janus-gateway)
