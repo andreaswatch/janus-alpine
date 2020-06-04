@@ -30,6 +30,8 @@ RUN echo "**** install build packages ****" && \
 	libconfig-dev \
 	libogg-dev \
 	libmicrohttpd-dev \
+	libnice \
+	libnice-dev \
 	libwebsockets-dev \
 	lua5.3-dev \
 	openjpeg-dev \
@@ -48,10 +50,6 @@ RUN wget https://github.com/cisco/libsrtp/archive/v2.3.0.tar.gz \
         && tar xfv v2.3.0.tar.gz  && cd libsrtp-2.3.0 \
         && ./configure --prefix=/usr --enable-openssl \
         && make shared_library && sudo make install && rm -fr /libsrtp-2.3.0 && rm -f /v2.3.0.tar.gz
-
-RUN git clone https://gitlab.freedesktop.org/libnice/libnice.git/ && cd libnice \
-	&& ./autogen.sh && ./configure --prefix=/usr CFLAGS="-Wno-error=format -Wno-error=cast-align" \
-        && make && sudo make install && rm -fr /libnice
 
 # Janus WebRTC Installation
 
