@@ -1,3 +1,6 @@
+DO NOT USE THIS! USE THE ORIGINAL REPOSITORY!
+
+
 # Janus WebRTC gateway in a Docker Container
 
 [![Build Status](https://travis-ci.org/lklock/janus-alpine.svg?branch=master)](https://travis-ci.org/lklock/janus-alpine)
