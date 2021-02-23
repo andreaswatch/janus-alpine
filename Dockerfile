@@ -57,6 +57,12 @@ RUN git clone https://github.com/freeswitch/sofia-sip \
 	&& ./configure \
 	&& make \
 	&& make install
+	
+# Copy SSL keys
+
+RUN mkdir /etc/nginx/ssl
+COPY ssl/fullchain.pem /etc/nginx/ssl/fullchain.pem
+COPY ssl/privkey.pem /etc/nginx/ssl/privkey.pem
 
 # Janus WebRTC Installation
 
