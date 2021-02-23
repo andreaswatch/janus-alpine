@@ -3,6 +3,11 @@ FROM alpine:latest
 LABEL maintainer="Laurent Klock <klockla@hotmail.com>"
 LABEL description="Janus WebRTC Alpine image" 
 
+RUN rm -rf /var/cache/apk/* && \
+    rm -rf /tmp/*
+
+RUN apk update
+
 RUN echo "**** install build packages ****" && \
 	apk add --no-cache --virtual=build-dependencies --upgrade \
 	autoconf \
